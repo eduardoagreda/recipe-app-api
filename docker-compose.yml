@@ -1,0 +1,18 @@
+# Versión que se ocupará de Docker
+version: "3"
+
+# Servicios que se ocuparán
+services: 
+  # Django
+  app: 
+    # export UID=${UID} && export GID=${GID} se exportan por separado los GID y UID
+    # para hacer el startproject 
+    user: $UID:$GID
+    build: 
+      context: .
+    ports: 
+      - "8000:8000"
+    volumes: 
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
